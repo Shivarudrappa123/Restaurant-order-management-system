@@ -1,0 +1,153 @@
+<?php
+session_start();
+require_once 'config.php';
+
+// $pageTitle = 'Account';
+$additionalCss = '<link rel="stylesheet" href="css/account.css">';
+
+// If user is already logged in, redirect to menu or requested page
+if (isset($_SESSION['user_id'])) {
+    $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'menu.php';
+    header('Location: ' . $redirect);
+    exit();
+}
+
+// Handle login form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $email = $conn->real_escape_string($_POST['email']);
+    $password = $_POST['password'];
+    
+    $sql = "SELECT id, password FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'menu.php';
+            header('Location: ' . $redirect);
+            exit();
+        }
+    }
+    $loginError = "Invalid email or password";
+}
+
+// Handle registration form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    $name = $conn->real_escape_string($_POST['name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $phone = $conn->real_escape_string($_POST['phone']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    
+    $sql = "INSERT INTO users (name, email, phone, password) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $name, $email, $phone, $password);
+    
+    if ($stmt->execute()) {
+        $registrationSuccess = "Registration successful! Please login.";
+    } else {
+        $registrationError = "Registration failed. Please try again.";
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - FoodieHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="account.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">FoodieHub</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="menu.php"><i class="fas fa-utensils"></i> Menu</a></li>
+                <li><a href="order.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                <li><a href="account.php"><i class="fas fa-user"></i> Account</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+<div class="account-container">
+    <div class="forms-container">
+        <div class="form-box">
+            <div class="toggle-buttons">
+                <button type="button" class="toggle-btn active" data-form="login">Login</button>
+                <button type="button" class="toggle-btn" data-form="register">Register</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="form-active" method="POST">
+                <h2 class="form-title">Welcome Back!</h2>
+                <?php if (isset($loginError)): ?>
+                    <div class="error-message"><?php echo $loginError; ?></div>
+                <?php endif; ?>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" name="login" class="submit-btn">Login</button>
+                <div class="form-footer">
+                    <a href="resetpassword.php">Forgot Password?</a>
+                </div>
+            </form>
+
+            <!-- Registration Form -->
+            <form id="registerForm" class="form-inactive" method="POST">
+                <h2 class="form-title">Create Account</h2>
+                <?php if (isset($registrationSuccess)): ?>
+                    <div class="success-message"><?php echo $registrationSuccess; ?></div>
+                <?php endif; ?>
+                <?php if (isset($registrationError)): ?>
+                    <div class="error-message"><?php echo $registrationError; ?></div>
+                <?php endif; ?>
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" name="phone" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="password" required placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirm_password" required placeholder="Confirm your password">
+                </div>
+                <button type="submit" name="register" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<?php 
+$additionalJs = '<script src="ccount.js"></script>';
+require_once 'footer.php'; 
+?> 
+    <script src="navbar.js"></script>
+
+</body>
+</html>

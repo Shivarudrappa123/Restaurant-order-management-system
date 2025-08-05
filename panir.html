@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Palak Paneer - FoodieHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="customize.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">FoodieHub</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="menu.php"><i class="fas fa-utensils"></i> Menu</a></li>
+                <li><a href="order.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                <li><a href="account.php"><i class="fas fa-user"></i> Account</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="customize-container">
+        <div class="item-preview">
+            <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7" 
+                 alt="Palak Paneer" 
+                 class="preview-image">
+            <div class="preview-details">
+                <h2>Customize Your Palak Paneer</h2>
+                <p class="base-price">Base Price: ₹249</p>
+            </div>
+        </div>
+
+        <form id="paneerCustomizationForm">
+            <!-- Gravy Consistency -->
+            <div class="customization-section">
+                <h3 class="section-title">Gravy Consistency</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="radio" name="consistency" value="thick" checked>
+                        <span class="option-label">Thick Gravy</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="consistency" value="medium">
+                        <span class="option-label">Medium Gravy</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="consistency" value="thin">
+                        <span class="option-label">Thin Gravy</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Paneer Options -->
+            <div class="customization-section">
+                <h3 class="section-title">Paneer Options</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" name="paneerOptions" value="extra_paneer" data-price="40">
+                        <span class="option-label">Extra Paneer (+₹40)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="paneerOptions" value="grilled_paneer" data-price="30">
+                        <span class="option-label">Grilled Paneer (+₹30)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="paneerOptions" value="soft_paneer" data-price="20">
+                        <span class="option-label">Extra Soft Paneer (+₹20)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Spice Level -->
+            <div class="customization-section">
+                <h3 class="section-title">Spice Level</h3>
+                <div class="spice-level">
+                    <span>Mild</span>
+                    <input type="range" class="spice-slider" min="1" max="5" value="2">
+                    <span>Extra Spicy</span>
+                </div>
+            </div>
+
+            <!-- Additional Options -->
+            <div class="customization-section">
+                <h3 class="section-title">Additional Options</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" name="extras" value="butter" data-price="15">
+                        <span class="option-label">Extra Butter (+₹15)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="extras" value="cream" data-price="20">
+                        <span class="option-label">Add Cream (+₹20)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="extras" value="garlic" data-price="10">
+                        <span class="option-label">Extra Garlic (+₹10)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Bread Selection -->
+            <div class="customization-section">
+                <h3 class="section-title">Bread Selection</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" name="bread" value="roti" data-price="15">
+                        <span class="option-label">Roti (2 pcs) (+₹15)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="bread" value="naan" data-price="25">
+                        <span class="option-label">Butter Naan (+₹25)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="bread" value="kulcha" data-price="30">
+                        <span class="option-label">Garlic Kulcha (+₹30)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Quantity & Instructions -->
+            <div class="customization-section">
+                <h3 class="section-title">Quantity & Instructions</h3>
+                <div class="quantity-control">
+                    <button type="button" class="quantity-btn minus">-</button>
+                    <input type="number" class="quantity-input" value="1" min="1" max="10">
+                    <button type="button" class="quantity-btn plus">+</button>
+                </div>
+                <textarea class="special-instructions" placeholder="Any special instructions? (Optional)"></textarea>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="price-summary">
+                <div class="price-row">
+                    <span>Base Price:</span>
+                    <span id="basePrice">₹249.00</span>
+                </div>
+                <div class="price-row">
+                    <span>Add-ons:</span>
+                    <span id="addonsPrice">₹0.00</span>
+                </div>
+                <div class="total-price">
+                    <span>Total:</span>
+                    <span id="totalPrice">₹249.00</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button type="submit" class="add-to-cart">Add to Cart</button>
+                <button type="button" class="cancel-btn" onclick="window.location.href='menu.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="panir.js"></script>
+</body>
+</html>

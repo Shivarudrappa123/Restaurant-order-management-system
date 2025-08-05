@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Veg Pulav - FoodieHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="customize.css">
+    <link rel="stylesheet" href="menu.css">
+    <!-- <link rel="stylesheet" href="index.css"> -->
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">FoodieHub</a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="menu.php"><i class="fas fa-utensils"></i> Menu</a></li>
+                <li><a href="order.php"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+                <li><a href="account.php"><i class="fas fa-user"></i> Account</a></li>
+                <li><a href="support.html"><i class="fas fa-headset"></i> Support</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="customize-container">
+        <div class="item-preview">
+            <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2022/04/veg-pulao-recipe.jpg" 
+                 alt="Special Veg Pulav" 
+                 class="preview-image">
+            <div class="preview-details">
+                <h2>Customize Your Special Veg Pulav</h2>
+                <p class="base-price">Base Price: ₹199</p>
+            </div>
+        </div>
+
+        <form id="pulavCustomizationForm">
+            <!-- Rice Type Selection -->
+            <div class="customization-section">
+                <h3 class="section-title">Rice Type</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="radio" name="riceType" value="basmati" checked>
+                        <span class="option-label">Basmati Rice</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="riceType" value="jeera" data-price="20">
+                        <span class="option-label">Jeera Rice (+₹20)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="radio" name="riceType" value="brown" data-price="30">
+                        <span class="option-label">Brown Rice (+₹30)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Vegetables Selection -->
+            <div class="customization-section">
+                <h3 class="section-title">Extra Vegetables</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" name="extraVeg" value="paneer" data-price="40">
+                        <span class="option-label">Add Paneer (+₹40)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="extraVeg" value="mushroom" data-price="30">
+                        <span class="option-label">Add Mushroom (+₹30)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="extraVeg" value="corn" data-price="20">
+                        <span class="option-label">Add Sweet Corn (+₹20)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Spice Level -->
+            <div class="customization-section">
+                <h3 class="section-title">Spice Level</h3>
+                <div class="spice-level">
+                    <span>Mild</span>
+                    <input type="range" class="spice-slider" min="1" max="5" value="2">
+                    <span>Extra Spicy</span>
+                </div>
+            </div>
+
+            <!-- Additional Options -->
+            <div class="customization-section">
+                <h3 class="section-title">Additional Options</h3>
+                <div class="option-group">
+                    <label class="option-item">
+                        <input type="checkbox" name="extras" value="ghee" data-price="15">
+                        <span class="option-label">Extra Ghee (+₹15)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="extras" value="raita" data-price="20">
+                        <span class="option-label">Add Raita (+₹20)</span>
+                    </label>
+                    <label class="option-item">
+                        <input type="checkbox" name="extras" value="papad" data-price="10">
+                        <span class="option-label">Add Papad (+₹10)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Quantity & Instructions -->
+            <div class="customization-section">
+                <h3 class="section-title">Quantity & Instructions</h3>
+                <div class="quantity-control">
+                    <button type="button" class="quantity-btn minus">-</button>
+                    <input type="number" class="quantity-input" value="1" min="1" max="10">
+                    <button type="button" class="quantity-btn plus">+</button>
+                </div>
+                <textarea class="special-instructions" placeholder="Any special instructions? (Optional)"></textarea>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="price-summary">
+                <div class="price-row">
+                    <span>Base Price:</span>
+                    <span id="basePrice">₹199.00</span>
+                </div>
+                <div class="price-row">
+                    <span>Add-ons:</span>
+                    <span id="addonsPrice">₹0.00</span>
+                </div>
+                <div class="total-price">
+                    <span>Total:</span>
+                    <span id="totalPrice">₹199.00</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="add-to-cart">Add to Cart</button>
+                <button type="button" class="cancel-btn" onclick="window.location.href='menu.html'">Cancel</button>
+            </div>
+        </form>
+    </div>
+   
+    <script src="palav.js"></script>
+
+    <script src="menu.js"></script>
+
+</body>
+</html>
